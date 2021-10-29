@@ -14,12 +14,6 @@ app.use(express.json());
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.bonkw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-client.connect(err => {
-    const collection = client.db('travedust_data').collection("packages");
-    console.log('Hitting the database');
-    client.close();
-})
-
 async function run() {
     try {
       await client.connect();
