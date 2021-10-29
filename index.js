@@ -23,9 +23,10 @@ async function run() {
        // Post Api
        app.post('/packages', async(req, res) => {
         const newPackage = req.body;
+        console.log('hitting the post')
         const result = await dataCollection.insertOne(newPackage);
-          console.log('got new post' , req.body);
-          console.log('added user ' , result);
+        console.log('got new post' , req.body);
+        console.log('added user ' , result);
         res.json(result);
       })
 
