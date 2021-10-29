@@ -26,7 +26,7 @@ async function run() {
       const database = client.db("travedust_data");
       const dataCollection = database.collection("packages");
 
-      const doc = {name:"nadia", email:"nadia@gmail.com"}
+      const doc = {name:"nadia", email:"nadiaaktaer@gmail.com"}
 
       const result = await dataCollection.insertOne(doc);
       console.log(`A document was inserted with the _id: ${result.insertedId}`);
