@@ -21,11 +21,22 @@ async function run() {
       const dataCollection = database.collection("packages");
       const servicesCollection = database.collection("services");
 
-      // GET API
+      // GET Package API
       app.get('/packages' , async(req, res) => {
         const cursor = dataCollection.find({});
         const packages = await cursor.toArray();
         res.send(packages);
+      })
+
+      // GET Single Package API
+      app.get('/packages/:id' , async(req, res) => {
+        const id = req.params.id;
+        console.log("Getting specific packages " , id);
+        const query = {_id:ObjectId(id)};
+        const package = await dataCollection.findOne(query);
+        console.log('load user with id', id);
+        // res.send(package);
+        res.json(package);
       })
 
       // const ser = {
@@ -35,30 +46,13 @@ async function run() {
       // }
       // const result = await servicesCollection.insertOne(ser);
       // console.log(`ser : ${result.insertedId}`);
-      // GET API
+
+      // GET Services API
       app.get('/services' , async(req, res) => {
         const cursor = servicesCollection.find({});
         const services = await cursor.toArray();
         res.send(services);
       })
-
-      app.get('/packages/:id' , async(req, res) => {
-        const id = req.params.id;
-        console.log("Getting specific packages " , id);
-        const query = {_id:ObjectId(id)};
-        const package = await usersCollection.findOne(query);
-        console.log('load user with id', id);
-        // res.send(package);
-        res.json(package);
-      })
-      // Get Single Service
-    //   app.get('/services/:id' , async(req , res) => {
-    //     const id = req.params.id;
-    //     console.log("Getting specific service " , id);
-    // //     const query = {_id:ObjectId(id)};
-    // //     const collection = await servicesCollection.findOne(query);
-    // //     res.json(collection);
-    //  });
 
        // Post Api
        app.post('/packages', async(req, res) => {
