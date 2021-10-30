@@ -19,6 +19,46 @@ async function run() {
       await client.connect();
       const database = client.db("travedust_data");
       const dataCollection = database.collection("packages");
+      const servicesCollection = database.collection("services");
+
+      // GET API
+      app.get('/packages' , async(req, res) => {
+        const cursor = dataCollection.find({});
+        const packages = await cursor.toArray();
+        res.send(packages);
+      })
+
+      // const ser = {
+      //   item:"Wide Variety of Tours",
+      //   description:"We offer a wide variety of personally picked tours with destinations a...",
+      //   icon:"fab fa-watchman-monitoring"
+      // }
+      // const result = await servicesCollection.insertOne(ser);
+      // console.log(`ser : ${result.insertedId}`);
+      // GET API
+      app.get('/services' , async(req, res) => {
+        const cursor = servicesCollection.find({});
+        const services = await cursor.toArray();
+        res.send(services);
+      })
+
+      app.get('/packages/:id' , async(req, res) => {
+        const id = req.params.id;
+        console.log("Getting specific packages " , id);
+        const query = {_id:ObjectId(id)};
+        const package = await usersCollection.findOne(query);
+        console.log('load user with id', id);
+        // res.send(package);
+        res.json(package);
+      })
+      // Get Single Service
+    //   app.get('/services/:id' , async(req , res) => {
+    //     const id = req.params.id;
+    //     console.log("Getting specific service " , id);
+    // //     const query = {_id:ObjectId(id)};
+    // //     const collection = await servicesCollection.findOne(query);
+    // //     res.json(collection);
+    //  });
 
        // Post Api
        app.post('/packages', async(req, res) => {
