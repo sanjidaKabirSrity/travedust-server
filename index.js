@@ -89,6 +89,15 @@ async function run() {
         res.json(book);
       })
 
+      // DELETE Bookinh API
+      app.delete('/booking/:id' , async(req, res)=>{
+        const id = req.params.id;
+        const query = {_id: ObjectId(id)};
+        const result = await bookingCollection.deleteOne(query);
+        console.log('deleting user with id' , id , result);
+        res.json(result);
+      })
+
     } finally {
       // await client.close();
     }
