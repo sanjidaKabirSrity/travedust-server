@@ -20,6 +20,7 @@ async function run() {
       const database = client.db("travedust_data");
       const dataCollection = database.collection("packages");
       const servicesCollection = database.collection("services");
+      const bookingCollection = database.collection("booking");
 
       // GET Package API
       app.get('/packages' , async(req, res) => {
@@ -40,11 +41,11 @@ async function run() {
       })
 
       // const ser = {
-      //   item:"Wide Variety of Tours",
-      //   description:"We offer a wide variety of personally picked tours with destinations a...",
+      //   googl:"Wide Variety of Tours",
+      //   descrip:"We offer a wide variety of personally picked tours with destinations a...",
       //   icon:"fab fa-watchman-monitoring"
       // }
-      // const result = await servicesCollection.insertOne(ser);
+      // const result = await bookingCollection.insertOne(ser);
       // console.log(`ser : ${result.insertedId}`);
 
       // GET Services API
@@ -54,7 +55,7 @@ async function run() {
         res.send(services);
       })
 
-       // Post Api
+       // Post Package Api
        app.post('/packages', async(req, res) => {
         const newPackage = req.body;
         console.log('hitting the post')
@@ -63,6 +64,15 @@ async function run() {
         console.log('added user ' , result);
         res.json(result);
       })
+
+      // Post Booking Api
+      app.post('/booking' , async(req , res) => {
+        const newBooking = req.body;
+        // console.log('Booking' , newBooking);
+        const result = await bookingCollection.insertOne(newBooking);
+        // res.send('Booking Processed');
+        res.json(result);
+    })
 
     } finally {
       // await client.close();
