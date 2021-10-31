@@ -80,6 +80,14 @@ async function run() {
         // res.send('Booking Processed');
         res.json(result);
     })
+    
+      // GET Booking API By Email
+      app.post('/booking/byEmail' , async(req, res) => {
+        const userEmail = req.body;
+        const query = {email:{$in:userEmail}};
+        const book = await bookingCollection.find(query).toArray();
+        res.json(book);
+      })
 
     } finally {
       // await client.close();
