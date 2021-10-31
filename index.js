@@ -55,6 +55,13 @@ async function run() {
         res.send(services);
       })
 
+      // GET Booking API
+      app.get('/booking' , async(req, res) => {
+        const cursor = bookingCollection.find({});
+        const booking = await cursor.toArray();
+        res.send(booking);
+      })
+
        // Post Package Api
        app.post('/packages', async(req, res) => {
         const newPackage = req.body;
