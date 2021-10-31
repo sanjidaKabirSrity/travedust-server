@@ -68,7 +68,7 @@ async function run() {
       // Post Booking Api
       app.post('/booking' , async(req , res) => {
         const newBooking = req.body;
-        // console.log('Booking' , newBooking);
+        console.log('Booking' , newBooking);
         const result = await bookingCollection.insertOne(newBooking);
         // res.send('Booking Processed');
         res.json(result);
