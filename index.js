@@ -98,6 +98,23 @@ async function run() {
         res.json(result);
       })
 
+      // Update Api
+      app.put('/booking/:id' , async(req , res) => {
+        const id = req.params.id;
+        const updatedUser = req.body;
+        const filter = {_id:ObjectId(id)};
+        const options = {upsert:true};
+        const updateDoc = {
+          $set:{
+            name:updatedUser.status,
+          },
+        };
+        const result = await bookingCollection.updateOne(filter, updateDoc , options);
+        // console.log('updateing user' , id);
+        // res.send('Updating not dating')
+        res.json(result);
+      })
+
     } finally {
       // await client.close();
     }
